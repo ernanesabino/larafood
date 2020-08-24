@@ -234,6 +234,7 @@ return [
         [
             'text' => 'Planos',
             'url'  => 'admin/plans',
+            'icon' => 'fas fa-list-alt',
         ],       
     ],
 
