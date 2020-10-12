@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Permissões do Pefil {$profile->name}')
+@section('title', 'Permissões disponíveis para o Pefil {$profile->name}')
 
 @section('content_header')
     <ol class="breadcrumb">
@@ -8,7 +8,7 @@
         <li class="breadcrumb-item active"><a href="{{ route('profiles.index') }}">Perfis</a></li>
     </ol>
 
-    <h1>Permissões do Pefil <strong>{{$profile->name}}</strong> <a href="{{ route('profiles.permissions.available', $profile->id) }}" class="btn btn-dark">ADD NOVA PERMISSÃO</a></h1>    
+    <h1>Permissões disponíveis para o Pefil <strong>{{$profile->name}}</strong></h1>    
 @stop
 
 @section('content')
@@ -24,21 +24,33 @@
             <table class="table table-condensed">
                 <thead>
                     <tr>
+                        <th width="50px">#</th>
                         <th>Nome</th>
-                        <th width="170">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($permissions  as $permission)
-                        <tr>
-                            <td>
-                                {{ $permission->name }}
-                            </td>
-                            <td style="width=10px;">
-                                <a href="{{ route('profiles.show', $profile->id) }}" class="btn btn-warning"><i class="fas fa-eye"></i></a>                                
-                            </td>
-                        </tr>
-                    @endforeach
+                    <form action="{{ route('profiles.permissions.attach', $profile->id) }}" method="POST">
+                       @csrf
+
+                       @foreach ($permissions  as $permission)
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="permissions[]" value="{{$permission->id}}">
+                                </td>
+                                <td>
+                                    {{ $permission->name }}
+                                </td>                            
+                            </tr>
+                       @endforeach
+
+                       <tr>
+                           <td colspan="500">
+                                @include('admin.includes.alerts')
+
+                                <button type="submit" class="btn btn-success">Vincular</button>
+                           </td>
+                       </tr>
+                   </form>
                 </tbody>
             </table>
         </div>
