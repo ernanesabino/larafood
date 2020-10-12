@@ -5,6 +5,12 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')
         ->namespace('Admin')
         ->group(function(){
+    
+    /** 
+     * Permission x Profile 
+    */
+    Route::get('profiles/{id}/permission', 'ACL\PermissionProfileController@permissions')->name('profiles.permissions');        
+            
 
     /*
     * Routes Permissions
