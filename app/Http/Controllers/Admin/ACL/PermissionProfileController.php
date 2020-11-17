@@ -35,7 +35,7 @@ class PermissionProfileController extends Controller
 
     }
 
-    public function permissionsAvailable($idProfile)
+    public function permissionsAvailable(Request $request, $idProfile)
     {
 
         //Recupera o profile através do id. Se não encontrar, faz um redirect back       
@@ -43,9 +43,12 @@ class PermissionProfileController extends Controller
             return redirect()->back();
         }
 
-        $permissions = $profile->permissionsAvailable();
+        //Cria o filtro de permissões
+        $filters = $request->except('_token');        
 
-        return view('admin.pages.profiles.permissions.available', compact('profile','permissions'));        
+        $permissions = $profile->permissionsAvailable($request->filter);
+
+        return view('admin.pages.profiles.permissions.available', compact('profile','permissions', 'filters'));        
 
     }
 
@@ -70,4 +73,6 @@ class PermissionProfileController extends Controller
         return redirect()->route('profiles.permissions', $profile->id);
 
     }
+
+
 }
