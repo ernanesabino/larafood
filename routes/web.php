@@ -9,6 +9,7 @@ Route::prefix('admin')
     /** 
      * Permission x Profile 
     */
+    Route::get('profiles/{id}/permission/{idPermission}/detach', 'ACL\PermissionProfileController@detachPermissionProfile')->name('profiles.permission.detach'); 
     Route::post('profiles/{id}/permission', 'ACL\PermissionProfileController@attachPermissionsProfile')->name('profiles.permissions.attach'); 
     Route::any('profiles/{id}/permission/create', 'ACL\PermissionProfileController@permissionsAvailable')->name('profiles.permissions.available'); 
     Route::get('profiles/{id}/permission', 'ACL\PermissionProfileController@permissions')->name('profiles.permissions');        

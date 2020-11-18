@@ -52,6 +52,7 @@ class PermissionProfileController extends Controller
 
     }
 
+    // Vincula permissão ao perfil
     public function attachPermissionsProfile(Request $request, $idProfile)
     {
 
@@ -70,6 +71,26 @@ class PermissionProfileController extends Controller
         //Vinvula as permissões ao perfil
         $profile->permissions()->attach($request->permissions);
         
+        return redirect()->route('profiles.permissions', $profile->id);
+
+    }
+
+    // Desvincula permissão do perfil
+    public function detachPermissionProfile($idProfile, $idPermission)
+    {
+        
+        //Recupera o perfil pelo id
+        $profile = $this->profile->find($idProfile);
+        //Recupera a permissão pelo id
+        $permission = $this->permission->find($idPermission);
+            
+        if(!$profile || !$permission) {
+            return redirect()->back();
+        }
+
+        //Desvincula permissão
+        $profile->permissions()->detach($permission);
+
         return redirect()->route('profiles.permissions', $profile->id);
 
     }
