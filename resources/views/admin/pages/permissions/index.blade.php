@@ -37,7 +37,7 @@
                             <td style="width=10px;">
                                 <a href="{{ route('permissions.show', $permission->id) }}" class="btn btn-warning"><i class="fas fa-eye"></i></a>
                                 <a href="{{ route('permissions.edit', $permission->id) }}" class="btn btn-info"><i class="fas fa-edit"></i></a>
-                                {{--<a href="{{ route('details.profile.index', $profile->url) }}" class="btn btn-primary"><i class="fas fa-info-circle"></i></a> --}}                                
+                                <a href="{{ route('permissions.profile', $permission->id) }}" class="btn btn-info"><i class="fas fa-address-book"></i></a>                                
                             </td>
                         </tr>
                     @endforeach

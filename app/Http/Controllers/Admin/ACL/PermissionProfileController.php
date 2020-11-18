@@ -35,6 +35,21 @@ class PermissionProfileController extends Controller
 
     }
 
+    // Lista os perfis da permissão
+    public function profiles($idPermission)
+    {
+        //Recupera a permissão através do id. Se não encontrar, faz um redirect back        
+        if(!$permission = $this->permission->find($idPermission)) {
+            return redirect()->back();
+        }
+
+        //Se encontrar, recupera os perfis da permissão
+        $profiles = $permission->profiles()->paginate();
+
+        return view('admin.pages.permissions.profiles.profiles', compact('permission','profiles'));        
+
+    }
+
     public function permissionsAvailable(Request $request, $idProfile)
     {
 
